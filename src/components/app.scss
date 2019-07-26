@@ -1,0 +1,40 @@
+body {
+	border: 1px solid red;
+	font-family: sans-serif;
+}
+
+.wrapper {
+	flex: 1 100%;
+	display: flex;
+	flex-flow: row wrap;
+
+	.header {
+    height: 50px;
+    order: 1;
+	}
+
+	.container {
+    display: flex;
+    flex-direction: row;
+  }
+  .aside-1 {
+    background-color: blue;
+    order: 2;
+  }
+
+  .main {
+    flex: 3 0px;
+    order: 3;
+  }
+
+  .aside-2 {
+    background-color: yellow;
+    order: 4;
+  }
+
+	.footer {
+    background-color: tomato;
+    order: 5;
+    height: 10px;
+	}
+}

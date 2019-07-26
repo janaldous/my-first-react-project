@@ -1,0 +1,124 @@
+$width-toggled: 80px;
+$sidebar-open-width: 200px;
+$height-menu-item: 40px;
+$padding-menu-item: 20px;
+$menu-item-width: ($sidebar-open-width)-$padding-menu-item;
+$menu-not-active: rgb(128, 127, 127);
+$menu-item-active-border-size: 5px;
+
+.sidebar {
+	width: $sidebar-open-width;
+	height: 100%;
+	background: rgb(78, 65, 65);
+	display: flex;
+	flex-direction: column;
+
+	.menu-item {
+		padding-left: $padding-menu-item;
+		width: $menu-item-width;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		
+
+		%menu-icon-common {
+			height: $height-menu-item;
+			width: $height-menu-item;
+			border-radius: $height-menu-item/4;
+		}
+
+		.link {
+			display: flex;
+			align-items: center;
+
+			.menu-icon {
+				@extend %menu-icon-common;
+				background-color: $menu-not-active;
+			}
+
+			.menu-name {
+				margin-left: 10px;
+				text-decoration: none;
+				color: $menu-not-active;
+			}
+		}
+
+		%bar-common {
+			width: $height-menu-item;
+			height: 5px;
+			border-radius: 2px;
+			background-color: white;
+			margin: 6px 0;
+			transition: 0.4s;
+		}
+
+		.cross {
+			display: flex;
+			justify-content: flex-end;
+			padding-right: $padding-menu-item;
+			
+			.hamburger-icon-container {
+				width: $height-menu-item;
+				cursor: pointer;
+
+				.bar1,
+				.bar2,
+				.bar3 {
+					@extend %bar-common;
+				}
+			}
+
+			.change {
+				cursor: pointer;
+
+				.bar1 {
+					@extend %bar-common;
+					-webkit-transform: rotate(-45deg) translate(-9px, 6px);
+					transform: rotate(-45deg) translate(-9px, 6px);
+				}
+
+				.bar2 {
+					@extend %bar-common;
+					opacity: 0;
+				}
+
+				.bar3 {
+					@extend %bar-common;
+					-webkit-transform: rotate(45deg) translate(-8px, -8px);
+					transform: rotate(45deg) translate(-8px, -8px);
+				}
+			}
+		}
+	}
+}
+
+.main-item {
+	cursor: pointer;
+
+	&:hover {
+		border-left: $menu-item-active-border-size solid yellowgreen;
+		padding-left: ($padding-menu-item)-$menu-item-active-border-size;
+
+		.link {
+			.menu-icon {
+				@extend %menu-icon-common;
+				background-color: yellowgreen;
+			}
+
+			.menu-name {
+				color: white;
+			}
+		}
+	}
+}
+
+.sidebar-toggled {
+	width: $width-toggled;
+
+	.menu-item {
+		width: $height-menu-item;
+
+		.cross {
+			padding-right: 0px;
+		}
+	}
+}

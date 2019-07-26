@@ -1,0 +1,103 @@
+$title-font-size: 60px;
+$title-margin-top: 10px;
+$profile-pic-radius: $title-font-size * 2 + $title-margin-top * 2;
+
+.employee-detail {
+	.name-info {
+		display: flex;
+		flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+		margin-top: 80px;
+
+		.name {
+			font-size: $title-font-size;
+			font-weight: bold;
+
+			.firstname,
+			.lastname {
+				margin-top: $title-margin-top;
+			}
+		}
+
+		.profile-pic {
+			width: $profile-pic-radius;
+			height: $profile-pic-radius;
+			background-color: red;
+			border-radius: $profile-pic-radius;
+		}
+	}
+
+	.role {
+		margin-top: 20px;
+		font-size: 20px;
+	}
+}
+
+.inventory-list {
+	margin-top: 40px;
+
+	.inventory-list-title {
+		margin-bottom: 10px;
+		font-size: 20px;
+		font-weight: bold;
+	}
+}
+
+.employee-table {
+	table {
+		// border: 1px solid black;
+		border-collapse: collapse;
+		width: 100%;
+
+		th {
+			font-weight: bold;
+			text-align: left;
+		}
+
+		td,
+		th {
+			padding: 10px 15px;
+			// border: 1px solid pink;
+		}
+
+		tr {
+			border-bottom: 1px solid lightgray;
+
+			&:hover {
+				border-bottom: 1px solid gray;
+			}
+		}
+
+		.pill {
+			color: white;
+			text-decoration: none;
+			font-weight: bold;
+			font-size: 10px;
+			padding: 5px 8px;
+			border-radius: 10px;
+
+			&.edit {
+				background-color: rgb(243, 171, 38);
+			}
+
+			&.view {
+				background-color: rgb(93, 23, 223);
+			}
+		}
+	}
+}
+
+.button-row {
+    // float: right;
+    .button {
+        color: white;
+        text-decoration: none;
+        // font-weight: bold;
+        letter-spacing: 1px;
+        font-size: 12px;
+        padding: 8px 13px;
+        border-radius: 10px;
+        background-color: blue;
+    }
+}
