@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./hello.scss";
+import "./home.scss";
 import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 export interface HomeCardProps { name: string; url: string }

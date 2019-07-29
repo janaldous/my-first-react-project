@@ -1,40 +1,45 @@
 body {
-	border: 1px solid red;
 	font-family: sans-serif;
+	margin: 0px;
 }
 
 .wrapper {
-	flex: 1 100%;
-	display: flex;
-	flex-flow: row wrap;
-
 	.header {
-    height: 50px;
-    order: 1;
+		height: 50px;
+		width: 100%;
 	}
 
 	.container {
-    display: flex;
-    flex-direction: row;
-  }
-  .aside-1 {
-    background-color: blue;
-    order: 2;
-  }
+		clear: both;
+		
+		.aside-1 {
+			float: left;
+			width: 24.5%;
+			height: 600px;
+		}
 
-  .main {
-    flex: 3 0px;
-    order: 3;
-  }
+		.main {
+			display: inline-block;
+			width: 50%;
+			height: 600px;
+			overflow: hidden;
+			border: 1px solid blue;
 
-  .aside-2 {
-    background-color: yellow;
-    order: 4;
-  }
+			&:after {
+				overflow: none;
+			}
+		}
+
+		.aside-2 {
+			float: right;
+			width: 25%;
+			height: 600px;
+		}
+	}
 
 	.footer {
-    background-color: tomato;
-    order: 5;
-    height: 10px;
+		background-color: peru;
+		text-align: center;
+		height: 50px;
 	}
 }

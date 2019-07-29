@@ -1,7 +1,8 @@
 import * as React from "react";
 import { HomepageCard } from "./HomepageCard";
-import "./hello.scss";
+import "./home.scss";
 import { pages } from "../App";
+import { MainContent } from "../MainContent";
 
 export interface HelloProps { compiler: string; library: string; }
 
@@ -10,17 +11,14 @@ export interface HelloProps { compiler: string; library: string; }
 export const Hello: React.FunctionComponent<HelloProps> = (props) => {
     
     return (
-        <div>
-            <div className="title">
-                <h1>Hello from {props.compiler} and {props.library}!</h1>
-            </div>
-            <div className="main">
+        <MainContent title={`Hello from ${props.compiler} and ${props.library}!`}>
+            <div className="home">
                 {
                     pages.map((p) => {
                         return <HomepageCard name={p.name} url={p.url}/>
                     })
                 }
             </div>
-        </div>
+        </MainContent>
     );
 };

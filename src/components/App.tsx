@@ -1,7 +1,6 @@
 import * as React from "react";
-import { render } from 'react-dom';
 import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import { Hello } from "./hello/Hello";
+import { Hello } from "./home/Home";
 import { Counter } from "./Counter";
 import { EmployeeList } from "./employee/EmployeeList";
 import { Employee } from "./employee/Employee";
@@ -41,6 +40,7 @@ export default class App extends React.Component {
 					<div className="header">
 						<NavBar />
 					</div>
+					
 					<div className="container">
 						<div className="aside-1">
 							<SideBar />
@@ -60,7 +60,7 @@ export default class App extends React.Component {
 						</div>
 						<div className="aside-2"></div>
 					</div>
-					<div className="footer"></div>
+					<div className="footer">I am the footer</div>
 				</div>
 			</Router>
 		);

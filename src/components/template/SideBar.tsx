@@ -29,13 +29,13 @@ export class SideBar extends React.Component<NavBarProps, NavBarState> {
 
     render() {
         return (
-            <div className={"sidebar " + (this.state.toggle ? "sidebar-toggled" : "")} >
+            <div className={"sidebar " + (this.state.toggle ? "sidebar-close" : "")} >
                 <div className="menu-item">
                     <div className="cross">
-                        <div className={(this.state.toggle ? "hamburger-icon-container" : "change")} onClick={this.toggle}>
-                            <div className="bar1"></div>
-                            <div className="bar2"></div>
-                            <div className="bar3"></div>
+                        <div className={"hamburger-icon-container"} onClick={this.toggle}>
+                            <div className={"bar1"  + (this.state.toggle ? ""  : " change")}></div>
+                            <div className={"bar2"  + (this.state.toggle ? ""  : " change")}></div>
+                            <div className={"bar3"  + (this.state.toggle ? ""  : " change")}></div>
                         </div>
                     </div>
                 </div>

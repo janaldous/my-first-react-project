@@ -1,0 +1,47 @@
+$borderSize: 1px;
+$borderSizeHover: $borderSize + 5px;
+
+$widthOfColumn: 20%;
+$heightOfRow: 190px;
+
+.home {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-column-gap: 25px;
+	grid-row-gap: 25px;
+	justify-items: stretch;
+	height: 100%;
+
+	.link {
+		text-decoration: none;
+		color: black;
+		align-self: stretch;
+
+		.box {
+			border: $borderSize solid grey;
+			border-radius: 25px;
+			background-color: white;
+			// height: 50px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0px 1px 1px 0px;
+		
+			&:hover {
+				box-shadow: 1px 2px 2px 1px;
+			}
+		
+			p {
+				text-align: center;
+				text-transform: capitalize;
+				font-family: sans-serif;
+				font-size: 20px;
+				font-style: white;
+			}
+		}
+	}
+}
+
+
+
+
