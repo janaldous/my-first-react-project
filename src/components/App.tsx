@@ -1,30 +1,37 @@
 import * as React from "react";
-import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { Hello } from "./home/Home";
 import { Counter } from "./Counter";
-import { EmployeeList } from "./employee/EmployeeList";
 import { Employee } from "./employee/Employee";
-import { EmployeeForm } from "./employee/EmployeeForm";
 import { NoContent } from "./NoContent";
 import { About } from "./textpage/About";
 import { Inventory } from "./inventory/Inventory";
-import { InventoryDetail } from "./inventory/InventoryDetail";
+import { SideBar } from "./sidebar/SideBar";
+import { NavBar } from "./sidebar/NavBar";
 import "./app.scss";
-import { SideBar } from "./template/SideBar";
-import { NavBar } from "./template/NavBar";
 
 interface NavBarRoutes {
 	url: string;
 	name: string;
+	children?: Array<NavBarRoutes>;
 };
+
+export enum WebRoutes {
+	EmployeeList = "/employee",
+	EmployeeDetail = "/employee/detail",
+	EmployeeForm = "/employee/new",
+	InventoryMain = "/inventory",
+	InventoryList = "/inventory",
+	InventoryDetail = "/inventory/detail"
+}
 
 export const pages: Array<NavBarRoutes> = [
 	{ name: "Home", url: "/" },
 	{ name: "About", url: "/about" },
 	{ name: "Counter", url: "/counter" },
-	{ name: "Employees", url: "/employee" },
-	{ name: "New Employee", url: "/employee/new" },
-	{ name: "Employee detail", url: "/employee/detail" },
+	{ name: "Employees", url: WebRoutes.EmployeeList },
+	{ name: "New Employee", url: WebRoutes.EmployeeForm },
+	{ name: "Employee detail", url: WebRoutes.EmployeeDetail },
 	{ name: "Inventory", url: "/inventory" },
 	{ name: "Inventory detail", url: "/inventory/detail" }
 ];
@@ -40,7 +47,7 @@ export default class App extends React.Component {
 					<div className="header">
 						<NavBar />
 					</div>
-					
+
 					<div className="container">
 						<div className="aside-1">
 							<SideBar />
@@ -50,11 +57,8 @@ export default class App extends React.Component {
 								<Route exact path="/" component={() => <Hello compiler="TypeScript" library="React" />} />
 								<Route exact path="/counter" component={Counter} />
 								<Route exact path="/about" component={About} />
-								<Route exact path="/employee" component={EmployeeList} />
-								<Route exact path="/employee/new" component={EmployeeForm} />
-								<Route path="/employee/detail" component={Employee} />
-								<Route exact path="/inventory" component={Inventory} />
-								<Route exact path="/inventory/detail" component={InventoryDetail} />
+								<Route path={WebRoutes.EmployeeList} component={Employee} />
+								<Route path={WebRoutes.InventoryMain} component={Inventory} />
 								<Route component={NoContent} />
 							</Switch>
 						</div>

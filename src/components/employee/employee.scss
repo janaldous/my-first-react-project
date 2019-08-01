@@ -1,3 +1,5 @@
+@import '../inventory/inventory.scss';
+
 $title-font-size: 60px;
 $title-margin-top: 10px;
 $profile-pic-radius: $title-font-size * 2 + $title-margin-top * 2;
@@ -41,7 +43,42 @@ $profile-pic-radius: $title-font-size * 2 + $title-margin-top * 2;
 		margin-bottom: 10px;
 		font-size: 20px;
 		font-weight: bold;
-	}
+    }
+    
+    .small-list-item {
+        padding: 12px;
+    
+        &, .inventory-detail {
+            margin-bottom: 5px;
+        }
+    
+        .pic {
+            height: $pic-small-height;
+            width: $pic-small-height;
+            border-radius: $pic-small-height;
+    
+            > .center-text {
+                font-size: 20px;
+            }
+        }
+    
+        .description {
+            display: flex;
+            flex-direction: row;
+    
+            > .item-name {
+                // display: inline;
+                // margin-right: 20px;
+                width: 140px;
+                font-size: 17px;
+            }
+    
+            > .inline {
+                // display: inline;
+                font-size: 15px;
+            }
+        }
+    }
 }
 
 .employee-table {
@@ -89,7 +126,8 @@ $profile-pic-radius: $title-font-size * 2 + $title-margin-top * 2;
 }
 
 .button-row {
-    // float: right;
+    margin-top: 10px;
+
     .button {
         color: white;
         text-decoration: none;

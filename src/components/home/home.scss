@@ -6,42 +6,54 @@ $heightOfRow: 190px;
 
 .home {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(4, 1fr);
 	grid-column-gap: 25px;
 	grid-row-gap: 25px;
+	align-items: stretch;
 	justify-items: stretch;
-	height: 100%;
+	justify-content: stretch;
+	align-content: stretch;
+	height: 80%;
+	margin: 20px;
 
 	.link {
 		text-decoration: none;
 		color: black;
-		align-self: stretch;
+		// align-self: stretch;
+		// justify-self: stretch;
+		// place-self: stretch;
+
+		&.long-left {
+			grid-column: 1 / span 2;
+		}
+		
+		&.long-right {
+			grid-column-start: 3;
+			grid-column-end: span 2;
+		}
+		
 
 		.box {
+			height: 100%;
+			width: 100%;
 			border: $borderSize solid grey;
 			border-radius: 25px;
 			background-color: white;
-			// height: 50px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			box-shadow: 0px 1px 1px 0px;
-		
+			text-align: center;
+			text-transform: capitalize;
+			font-family: sans-serif;
+			font-size: 20px;
+			font-style: white;
+
+			
+
 			&:hover {
 				box-shadow: 1px 2px 2px 1px;
-			}
-		
-			p {
-				text-align: center;
-				text-transform: capitalize;
-				font-family: sans-serif;
-				font-size: 20px;
-				font-style: white;
 			}
 		}
 	}
 }
-
-
-
-

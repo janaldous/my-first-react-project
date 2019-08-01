@@ -1,5 +1,5 @@
 import *  as React from 'react';
-import { EmployeeProps } from './Employee';
+import { EmployeeProps } from './EmployeeDetail';
 
 export const EmployeeForm: React.FunctionComponent<EmployeeProps> = (props: EmployeeProps) => {
     const onAdd = () => {

@@ -1,5 +1,4 @@
 .inventory-container {
-	// border: 1px solid black;
 	display: flex;
 	flex-direction: column;
 }
@@ -54,37 +53,37 @@ $pic-small-height: 25px;
 	}
 }
 
-.small-list-item {
-	padding: 12px;
+// .small-list-item {
+// 	padding: 12px;
 
-	&, .inventory-detail {
-		margin-bottom: 5px;
-	}
+// 	&, .inventory-detail {
+// 		margin-bottom: 5px;
+// 	}
 
-	.pic {
-		height: $pic-small-height;
-		width: $pic-small-height;
-		border-radius: $pic-small-height;
+// 	.pic {
+// 		height: $pic-small-height;
+// 		width: $pic-small-height;
+// 		border-radius: $pic-small-height;
 
-		> .center-text {
-			font-size: 20px;
-		}
-	}
+// 		> .center-text {
+// 			font-size: 20px;
+// 		}
+// 	}
 
-	.description {
-		display: flex;
-		flex-direction: row;
+// 	.description {
+// 		display: flex;
+// 		flex-direction: row;
 
-		> .item-name {
-			// display: inline;
-			// margin-right: 20px;
-			width: 140px;
-			font-size: 17px;
-		}
+// 		> .item-name {
+// 			// display: inline;
+// 			// margin-right: 20px;
+// 			width: 140px;
+// 			font-size: 17px;
+// 		}
 
-		> .inline {
-			// display: inline;
-			font-size: 15px;
-		}
-	}
-}
+// 		> .inline {
+// 			// display: inline;
+// 			font-size: 15px;
+// 		}
+// 	}
+// }
