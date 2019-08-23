@@ -1,85 +1,124 @@
-@import '../inventory/inventory.scss';
-
 $title-font-size: 60px;
 $title-margin-top: 10px;
 $profile-pic-radius: $title-font-size * 2 + $title-margin-top * 2;
 
-.employee-detail {
-	.name-info {
-		display: flex;
-		flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-		margin-top: 80px;
+.employee-detail-container {
+	> .name-details {
+		> .name-info {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			margin-top: 80px;
 
-		.name {
-			font-size: $title-font-size;
-			font-weight: bold;
+			> .name {
+				font-size: $title-font-size;
+				font-weight: bold;
 
-			.firstname,
-			.lastname {
-				margin-top: $title-margin-top;
+				> .firstname,
+				.lastname {
+					margin-top: $title-margin-top;
+				}
+			}
+
+			> .profile-pic {
+				width: $profile-pic-radius;
+				height: $profile-pic-radius;
+				background-color: red;
+				border-radius: $profile-pic-radius;
 			}
 		}
 
-		.profile-pic {
-			width: $profile-pic-radius;
-			height: $profile-pic-radius;
-			background-color: red;
-			border-radius: $profile-pic-radius;
+		> .role {
+			margin-top: 20px;
+			font-size: 20px;
+		}
+    }
+    
+    > .inventory-list {
+        margin-top: 40px;
+    
+        > .inventory-list-title {
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    
+        > a {
+            > .inventory-detail {
+                padding: 12px;
+                margin-bottom: 5px;
+                $pic-small-height: 25px;
+        
+                > .pic {
+                    height: $pic-small-height;
+                    width: $pic-small-height;
+                    border-radius: $pic-small-height;
+        
+                    > .center-text {
+                        font-size: 20px;
+                    }
+                }
+        
+                > .description {
+                    display: flex;
+                    flex-direction: row;
+        
+                    > .item-name {
+                        width: 140px;
+                        font-size: 17px;
+                    }
+        
+                    > .inline {
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.employee-form-container {
+	$border-radius : 4px;
+
+	form {
+		padding-left: 10px;
+
+		.form-row {
+			padding-bottom: 20px;
+			display: flex;
+			flex-direction: column;
+	
+			.form-label {
+				padding-right: 10px;
+				padding-bottom: 10px;
+				font-size: 13px;
+				color: rgb(83, 79, 79);
+			}
+
+			input[type=text] {
+				border-radius: $border-radius;
+				border-style: solid;
+				border-color: darkblue;
+				border-width: thin;
+				height: 20px;
+				width: 25%;
+			}
+		}
+
+		button[type=submit] {
+			border-width: thin;
+			border-color: white;
+			background-color: darkblue;
+			color: white;
+			padding: 10px 12px;
+			border-image: none;
+			border-radius: $border-radius;
 		}
 	}
-
-	.role {
-		margin-top: 20px;
-		font-size: 20px;
-	}
 }
 
-.inventory-list {
-	margin-top: 40px;
-
-	.inventory-list-title {
-		margin-bottom: 10px;
-		font-size: 20px;
-		font-weight: bold;
-    }
-    
-    .small-list-item {
-        padding: 12px;
-    
-        &, .inventory-detail {
-            margin-bottom: 5px;
-        }
-    
-        .pic {
-            height: $pic-small-height;
-            width: $pic-small-height;
-            border-radius: $pic-small-height;
-    
-            > .center-text {
-                font-size: 20px;
-            }
-        }
-    
-        .description {
-            display: flex;
-            flex-direction: row;
-    
-            > .item-name {
-                // display: inline;
-                // margin-right: 20px;
-                width: 140px;
-                font-size: 17px;
-            }
-    
-            > .inline {
-                // display: inline;
-                font-size: 15px;
-            }
-        }
-    }
-}
 
 .employee-table {
 	table {
@@ -126,16 +165,15 @@ $profile-pic-radius: $title-font-size * 2 + $title-margin-top * 2;
 }
 
 .button-row {
-    margin-top: 10px;
+	margin-top: 10px;
 
-    .button {
-        color: white;
-        text-decoration: none;
-        // font-weight: bold;
-        letter-spacing: 1px;
-        font-size: 12px;
-        padding: 8px 13px;
-        border-radius: 10px;
-        background-color: blue;
-    }
+	.button {
+		color: white;
+		text-decoration: none;
+		letter-spacing: 1px;
+		font-size: 12px;
+		padding: 8px 13px;
+		border-radius: 10px;
+		background-color: blue;
+	}
 }

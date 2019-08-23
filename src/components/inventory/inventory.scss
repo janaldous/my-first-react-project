@@ -4,11 +4,10 @@
 }
 
 $pic-height: 50px;
-$pic-small-height: 25px;
 
 .inventory-detail {
 	font-family: sans-serif;
-	background-color: rgba(255, 255, 255, 0.692);
+	background-color: rgb(255, 255, 255);
 	cursor: pointer;
 	display: flex;
 	margin-bottom: 15px;
@@ -39,12 +38,12 @@ $pic-small-height: 25px;
 	.description {
 		padding-left: 15px;
 		width: 90%;
-		// height: auto;
-		// border: 1px solid orange;
+
 		> .item-name {
 			font-size: 20px;
 			margin-bottom: 5px;
 		}
+
 		> .inline {
 			display: inline;
 			margin-right: 10px;
@@ -52,38 +51,3 @@ $pic-small-height: 25px;
 		}
 	}
 }
-
-// .small-list-item {
-// 	padding: 12px;
-
-// 	&, .inventory-detail {
-// 		margin-bottom: 5px;
-// 	}
-
-// 	.pic {
-// 		height: $pic-small-height;
-// 		width: $pic-small-height;
-// 		border-radius: $pic-small-height;
-
-// 		> .center-text {
-// 			font-size: 20px;
-// 		}
-// 	}
-
-// 	.description {
-// 		display: flex;
-// 		flex-direction: row;
-
-// 		> .item-name {
-// 			// display: inline;
-// 			// margin-right: 20px;
-// 			width: 140px;
-// 			font-size: 17px;
-// 		}
-
-// 		> .inline {
-// 			// display: inline;
-// 			font-size: 15px;
-// 		}
-// 	}
-// }

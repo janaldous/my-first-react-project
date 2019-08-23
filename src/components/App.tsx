@@ -8,6 +8,7 @@ import { About } from "./textpage/About";
 import { Inventory } from "./inventory/Inventory";
 import { SideBar } from "./sidebar/SideBar";
 import { NavBar } from "./sidebar/NavBar";
+import { NotificationPanel } from "./shared/NotificationPanel";
 import "./app.scss";
 
 interface NavBarRoutes {
@@ -18,11 +19,11 @@ interface NavBarRoutes {
 
 export enum WebRoutes {
 	EmployeeList = "/employee",
-	EmployeeDetail = "/employee/detail",
+	EmployeeDetail = "/employee/:id",
 	EmployeeForm = "/employee/new",
 	InventoryMain = "/inventory",
 	InventoryList = "/inventory",
-	InventoryDetail = "/inventory/detail"
+	InventoryDetail = "/inventory/:id"
 }
 
 export const pages: Array<NavBarRoutes> = [
@@ -62,7 +63,9 @@ export default class App extends React.Component {
 								<Route component={NoContent} />
 							</Switch>
 						</div>
-						<div className="aside-2"></div>
+						<div className="aside-2">
+						<NotificationPanel message="Successfuly saved"></NotificationPanel>
+						</div>
 					</div>
 					<div className="footer">I am the footer</div>
 				</div>

@@ -2,29 +2,23 @@ import *  as React from 'react';
 import { Link } from 'react-router-dom';
 import { MainContent } from "../MainContent";
 import { WebRoutes } from "../App";
-import { EmployeeDetail } from './EmployeeDetail';
-import { EmployeeForm } from './EmployeeForm';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { Employee as EmployeeDto, EmployeeService } from '../../services/EmployeeService';
 
-export class EmployeeList extends React.Component {
-    state = {
-        employees: [
-            {
-                id: 1,
-                name: "Janno Gibbs",
-                role: "Software Developer"
-            },
-            {
-                id: 2,
-                name: "Janno Ronaldo Ilagan Gibbs",
-                role: "Software Developer"
-            },
-            {
-                id: 3,
-                name: "Marc Logan",
-                role: "Quality Assurance Tester"
-            }
-        ]
+export interface EmployeeListState {
+    data: Array<EmployeeDto>;
+}
+
+export class EmployeeList extends React.Component<{}, EmployeeListState> {
+    constructor(props: any) {
+        super(props);
+
+        this.state = {
+            data: null,
+        };
+    }
+
+    componentDidMount() {
+        this.setState({ data: EmployeeService.getAllEmployees() });
     }
 
     render() {
@@ -41,18 +35,17 @@ export class EmployeeList extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.employees.map((e) => {
+                            {this.state.data && this.state.data.map((e) => {
                                 return (
                                     <tr key={e.id}>
                                         <td>{e.name}</td>
                                         <td>{e.role}</td>
                                         <td><Link to={{
-                                            pathname: `/employee/detail`,
-                                            state: { ...e }
+                                            pathname: `/employee/${e.id}`,
                                         }} className="pill view">View</Link></td>
                                         <td><Link to={{
                                             pathname: `/employee/new`,
-                                            state: { ...e }
+                                            state: { ...e },
                                         }} className="pill edit">Edit</Link></td>
                                     </tr>
                                 );
