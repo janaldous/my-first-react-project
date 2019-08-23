@@ -97,6 +97,12 @@ $profile-pic-radius: $title-font-size * 2 + $title-margin-top * 2;
 				color: rgb(83, 79, 79);
 			}
 
+			.validation-message {
+				font-size: 12px;
+				color: red;
+				padding-left: 10px;
+			}
+
 			input[type=text] {
 				border-radius: $border-radius;
 				border-style: solid;
@@ -104,6 +110,10 @@ $profile-pic-radius: $title-font-size * 2 + $title-margin-top * 2;
 				border-width: thin;
 				height: 20px;
 				width: 25%;
+
+				&.error {
+					border: 1px solid red;
+				}
 			}
 		}
 

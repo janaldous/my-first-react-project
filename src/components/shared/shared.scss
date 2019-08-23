@@ -22,6 +22,10 @@
 	position: absolute;
 	color: white;
 
+	&.hidden {
+		visibility: hidden;
+	}
+
 	.close-row {
 		width: 100%;
 		height: 20px;

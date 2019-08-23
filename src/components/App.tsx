@@ -8,7 +8,7 @@ import { About } from "./textpage/About";
 import { Inventory } from "./inventory/Inventory";
 import { SideBar } from "./sidebar/SideBar";
 import { NavBar } from "./sidebar/NavBar";
-import { NotificationPanel } from "./shared/NotificationPanel";
+import { NotificationPanel, NotificationContext } from "./shared/NotificationPanel";
 import "./app.scss";
 
 interface NavBarRoutes {
@@ -64,7 +64,6 @@ export default class App extends React.Component {
 							</Switch>
 						</div>
 						<div className="aside-2">
-						<NotificationPanel message="Successfuly saved"></NotificationPanel>
 						</div>
 					</div>
 					<div className="footer">I am the footer</div>

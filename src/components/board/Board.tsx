@@ -18,7 +18,7 @@ export class Board extends React.Component<{}, BoardState> {
         squares[i] = 'X';
     }
 
-    renderSquare(i:number) {
-        return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)}></Square>
-    }
+    // renderSquare(i:number) {
+    //     return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)}></Square>
+    // }
 }

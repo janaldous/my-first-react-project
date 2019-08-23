@@ -1,7 +1,7 @@
 import *  as React from 'react';
 
 export interface SquareProps {
-    value: number;
+    value: string;
     onClick(i: number): any;
 }
 

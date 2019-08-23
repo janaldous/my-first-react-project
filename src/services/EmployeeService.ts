@@ -1,4 +1,9 @@
 
+export interface ValidationResult {
+    fieldName: string;
+    errorMessage: string;
+}
+
 export interface Employee {
     id?: number,
     name: string,
@@ -44,7 +49,22 @@ export class EmployeeService {
     static saveEmployee(employee: Employee) {
         return new Promise((resolve, reject) => {
             console.log("saving employee");
-            setTimeout(() => resolve(EmployeeService.employees.push(employee)), 4000);
+            setTimeout(() => {
+                let errors:Array<ValidationResult> = [];
+                console.log();
+                for (let name in employee) {
+                    if (!name) {
+                        errors.push({
+                            fieldName: name,
+                            errorMessage: "Required field"
+                        });
+                    }
+                }
+                if (errors.length > 0) {
+                    reject({errors});
+                }
+                resolve(EmployeeService.employees.push(employee));
+            }, 1000);
         });
     }
 }
