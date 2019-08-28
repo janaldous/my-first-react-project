@@ -45,21 +45,16 @@ export class EmployeeService {
     static getAllEmployees() {
         return EmployeeService.employees;
     }
-
+    
     static saveEmployee(employee: Employee) {
         return new Promise((resolve, reject) => {
             console.log("saving employee");
             setTimeout(() => {
                 let errors:Array<ValidationResult> = [];
-                console.log();
-                for (let name in employee) {
-                    if (!name) {
-                        errors.push({
-                            fieldName: name,
-                            errorMessage: "Required field"
-                        });
-                    }
-                }
+                // errors.push({
+                //     fieldName: "firstname",
+                //     errorMessage: "Required field"
+                // });
                 if (errors.length > 0) {
                     reject({errors});
                 }

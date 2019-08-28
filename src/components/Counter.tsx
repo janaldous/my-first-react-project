@@ -1,4 +1,5 @@
-import *  as React from 'react';
+import *  as React  from 'react';
+import {useState, useEffect}  from 'react';
 
 export interface CounterProps {}
 
@@ -6,30 +7,19 @@ export interface CounterState {
     count: number
 }
 
-export class Counter extends React.Component<CounterProps, CounterState> {
-    state = {
-        count : 0
-    };
+export const Counter: React.FC<CounterProps> = (props: CounterProps) => {
+    
+    const [count, setCount] = useState(0);
 
-    increment = () => {
-        this.setState({
-            count: (this.state.count+1)
-        });
-    };
+    useEffect(() => {
+        document.title = `You clicked ${count} times`;
+    });
 
-    decrement = () => {
-        this.setState({
-            count: (this.state.count-1)
-        });
-    };
-
-    render() {
-        return (
-            <div>
-                <h1>{ this.state.count }</h1>
-                <button onClick={ this.increment }>Increment</button>
-                <button onClick={ this.decrement }>Decrement</button>
-            </div>
-        );
-    };
+    return (
+        <div>
+            <p>You clicked { count } times</p>
+            <button onClick={ () => setCount(count+1) }>Increment</button>
+            <button onClick={ () => setCount(count-1) }>Decrement</button>
+        </div>
+    );
 }
