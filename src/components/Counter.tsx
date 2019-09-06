@@ -3,10 +3,6 @@ import {useState, useEffect}  from 'react';
 
 export interface CounterProps {}
 
-export interface CounterState {
-    count: number
-}
-
 export const Counter: React.FC<CounterProps> = (props: CounterProps) => {
     
     const [count, setCount] = useState(0);

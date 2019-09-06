@@ -38,18 +38,16 @@ $heightOfRow: 190px;
 			width: 100%;
 			border: $borderSize solid grey;
 			border-radius: 25px;
-			background-color: white;
+			background-color: rgb(99, 13, 99);
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			box-shadow: 0px 1px 1px 0px;
+			box-shadow: 1px 1px 1px 0px;
 			text-align: center;
 			text-transform: capitalize;
+			color: white;
 			font-family: sans-serif;
-			font-size: 20px;
-			font-style: white;
-
-			
+			font-size: 18px;
 
 			&:hover {
 				box-shadow: 1px 2px 2px 1px;

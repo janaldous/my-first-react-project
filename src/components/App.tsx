@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useMemo, createContext } from "react";
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { Hello } from "./home/Home";
 import { Counter } from "./Counter";
@@ -8,7 +9,9 @@ import { About } from "./textpage/About";
 import { Inventory } from "./inventory/Inventory";
 import { SideBar } from "./sidebar/SideBar";
 import { NavBar } from "./sidebar/NavBar";
-import { NotificationPanel, NotificationContext } from "./shared/NotificationPanel";
+import { NotificationPanel } from "./shared/NotificationPanel";
+import { LoadingOverlay } from '../components/shared/LoadingOverlay';
+
 import "./app.scss";
 
 interface NavBarRoutes {
@@ -37,9 +40,99 @@ export const pages: Array<NavBarRoutes> = [
 	{ name: "Inventory detail", url: "/inventory/detail" }
 ];
 
-export default class App extends React.Component {
+export const NotificationContext = createContext({
+	visible: false,
+	message: "",
+	setNotificationMessage: (message: string) => { },
+	closePanel: () => { },
+});
 
-	isSidebarOpen: boolean = false;
+export const LoadingContext = createContext({
+	isLoading: false,
+	setIsLoadingOn: () => { },
+	setIsLoadingOff: () => { },
+});
+
+export const SidebarContext = createContext({
+	isOpen: false,
+	toggle: () => { },
+});
+
+const SideBarProvider: React.FC = (props) => {
+	const [sidebarState, setSidebarState] = useState({
+		isOpen: true,
+	});
+
+	const sidebar = useMemo(() => {
+		return {
+			isOpen: sidebarState.isOpen,
+			toggle: () => setSidebarState({ isOpen: !sidebarState.isOpen }),
+		}
+	}, [sidebarState]);
+
+	return (<SidebarContext.Provider value={sidebar}>
+		{props.children}
+	</SidebarContext.Provider>);
+}
+
+const NotificationProvider: React.FC = (props) => {
+	const [notificationState, setNotificationState] = useState({
+		visible: false,
+		message: "",
+	});
+
+	const notification = useMemo(() => {
+		return {
+			visible: notificationState.visible,
+			message: notificationState.message,
+			setNotificationMessage: (message: string) => {
+				setNotificationState({ visible: true, message: message, });
+			},
+			closePanel: () => {
+				setNotificationState({ visible: false, message: "" })
+			},
+		}
+	}, [notificationState]);
+
+	return (<NotificationContext.Provider value={notification}>
+		{props.children}
+	</NotificationContext.Provider>);
+}
+
+const LoadingProvider: React.FC = (props) => {
+	const [loadingState, setLoadingState] = useState({
+		isLoading: false,
+	});
+
+	const loading = useMemo(() => {
+		return {
+			isLoading: loadingState.isLoading,
+			setIsLoadingOn: () => setLoadingState({ isLoading: true }),
+			setIsLoadingOff: () => setLoadingState({ isLoading: false }),
+		}
+	}, [loadingState]);
+
+	return (<LoadingContext.Provider value={loading}>
+		{props.children}
+	</LoadingContext.Provider>);
+}
+
+
+interface AppState {
+	isSidebarOpen: boolean;
+}
+
+export default class App extends React.Component<{}, AppState> {
+
+	constructor(props: {}) {
+		super(props);
+		this.state = {
+			isSidebarOpen: false,
+		}
+	}
+
+	loadingContext = LoadingContext;
+	notificationContext = NotificationContext;
 
 	render() {
 		return (
@@ -48,25 +141,40 @@ export default class App extends React.Component {
 					<div className="header">
 						<NavBar />
 					</div>
-
-					<div className="container">
-						<div className="aside-1">
-							<SideBar />
-						</div>
-						<div className="main">
-							<Switch>
-								<Route exact path="/" component={() => <Hello compiler="TypeScript" library="React" />} />
-								<Route exact path="/counter" component={Counter} />
-								<Route exact path="/about" component={About} />
-								<Route path={WebRoutes.EmployeeList} component={Employee} />
-								<Route path={WebRoutes.InventoryMain} component={Inventory} />
-								<Route component={NoContent} />
-							</Switch>
-						</div>
-						<div className="aside-2">
-						</div>
-					</div>
-					<div className="footer">I am the footer</div>
+					<SideBarProvider>
+						<LoadingProvider>
+							<NotificationProvider>
+								<div className="container">
+									<div className="aside-1">
+										<SidebarContext.Consumer>
+											{({ isOpen, toggle }) => <SideBar isOpen={isOpen} toggle={() => toggle()} />}
+										</SidebarContext.Consumer>
+									</div>
+									<div className="main-scrollable">
+										<div className="main">
+											<Switch>
+												<Route exact path="/" component={() => <Hello compiler="TypeScript" library="React" />} />
+												<Route exact path="/counter" component={Counter} />
+												<Route exact path="/about" component={About} />
+												<Route path={WebRoutes.EmployeeList} component={Employee} />
+												<Route path={WebRoutes.InventoryMain} component={Inventory} />
+												<Route component={NoContent} />
+											</Switch>
+										</div>
+										<div className="aside-2">
+											<NotificationContext.Consumer>
+												{({ visible, message }) => (visible && <NotificationPanel message={message}></NotificationPanel>)}
+											</NotificationContext.Consumer>
+										</div>
+									</div>
+								</div>
+								<div className="footer">I am the footer</div>
+								<LoadingContext.Consumer>
+									{({ isLoading }) => isLoading && <LoadingOverlay />}
+								</LoadingContext.Consumer>
+							</NotificationProvider>
+						</LoadingProvider>
+					</SideBarProvider>
 				</div>
 			</Router>
 		);

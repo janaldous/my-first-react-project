@@ -7,9 +7,11 @@ export interface MainContentProps {
 }
 
 export const MainContent: React.FunctionComponent<MainContentProps> = (props) => {
+    let classname = props.classname || '';
+
     return (
-        <div className={"main-content " + props.classname}>
-            <h1>{props.title}</h1>
+        <div className={"main-content " + classname}>
+            <div className="h1">{props.title}</div>
             {props.children}
         </div>
     );

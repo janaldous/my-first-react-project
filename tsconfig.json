@@ -2,10 +2,12 @@
 	"compilerOptions": {
 		"outDir": "./dist/",
 		"noImplicitAny": true,
+		"skipLibCheck": true,
 		"target": "es5",
 		"lib": ["es5", "es6", "dom"],
 		"jsx": "react",
 		"allowJs": true,
-		"moduleResolution": "node"
+		"moduleResolution": "node",
+		"module": "commonjs"
 	}
 }

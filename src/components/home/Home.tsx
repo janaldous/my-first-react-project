@@ -24,8 +24,8 @@ export const Hello: React.FunctionComponent<HelloProps> = (props) => {
                 <HomepageCard name={pages[4].name} url={pages[4].url} type="normal"/>
                 <HomepageCard name={pages[5].name} url={pages[5].url} type="normal"/>
                 {
-                    pages.map((p) => {
-                        return <HomepageCard name={p.name} url={p.url} type="normal" />
+                    pages.map((p, i) => {
+                        return <HomepageCard name={p.name} url={p.url} key={i} type="normal" />
                     })
                 }
             </div>

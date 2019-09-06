@@ -50,16 +50,16 @@ export class EmployeeService {
         return new Promise((resolve, reject) => {
             console.log("saving employee");
             setTimeout(() => {
-                let errors:Array<ValidationResult> = [];
+                // let errors:Array<ValidationResult> = [];
                 // errors.push({
                 //     fieldName: "firstname",
                 //     errorMessage: "Required field"
                 // });
-                if (errors.length > 0) {
-                    reject({errors});
-                }
+                // if (errors.length > 0) {
+                //     reject({errors});
+                // }
                 resolve(EmployeeService.employees.push(employee));
-            }, 1000);
+            }, 5000);
         });
     }
 }

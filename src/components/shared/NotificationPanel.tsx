@@ -1,37 +1,21 @@
 import *  as React from 'react';
+import {useContext} from 'react';
+import { LoadingContext, NotificationContext } from '../App';
 
 export interface NotificationPanelProps {
     message: string;
-    isVisible: boolean;
-    toggleVisibility: () => void;
 }
 
-interface NotificationPanelState {
-}
-
-export const NotificationContext = React.createContext({visible: false});
-
-export class NotificationPanel extends React.Component<NotificationPanelProps, NotificationPanelState> {
+export const NotificationPanel: React.FC<NotificationPanelProps> = (props) => {    
     
-    constructor(props: NotificationPanelProps) {
-        super(props);
-        this.state = {
-            visible: false
-        }
-    }
+    const context = useContext(NotificationContext);
 
-    static contextType = NotificationContext;
-
-    render() {
-        return (
-            <div className={"notification-panel-container" + (this.props.isVisible ? "": " hidden")}>
-                <NotificationContext.Provider value={{ visible: this.props.isVisible}}>
-                    <div className="close-row">
-                        <div className="close" onClick={this.props.toggleVisibility}>X</div>
-                    </div>
-                </NotificationContext.Provider>
-                <div className="message">{this.props.message}</div>
-            </div>
-        );
-    }
+    return (
+        <div className={"notification-panel-container"}>
+                <div className="close-row">
+                    <div className="close" onClick={context.closePanel}>X</div>
+                </div>
+            <div className="message">{props.message}</div>
+        </div>
+    );
 }
