@@ -13,6 +13,15 @@ import { NotificationPanel } from "./shared/NotificationPanel";
 import { LoadingOverlay } from '../components/shared/LoadingOverlay';
 
 import "./app.scss";
+import { SponsorshipBoard } from "./sponsorship/sponsorship";
+import * as whyDidYouRender from '@welldone-software/why-did-you-render/dist/no-classes-transpile/umd/whyDidYouRender.min.js';
+
+whyDidYouRender(React, {
+	onlyLogs: true,
+	titleColor: "green",
+	diffNameColor: "aqua",
+	include: [/^SponsorshipBoard/],
+});
 
 interface NavBarRoutes {
 	url: string;
@@ -21,6 +30,7 @@ interface NavBarRoutes {
 };
 
 export enum WebRoutes {
+	SponsorshipBoard = "/sponsorship",
 	EmployeeList = "/employee",
 	EmployeeDetail = "/employee/:id",
 	EmployeeForm = "/employee/new",
@@ -33,6 +43,7 @@ export const pages: Array<NavBarRoutes> = [
 	{ name: "Home", url: "/" },
 	{ name: "About", url: "/about" },
 	{ name: "Counter", url: "/counter" },
+	{ name: "Sponsorship", url: WebRoutes.SponsorshipBoard },
 	{ name: "Employees", url: WebRoutes.EmployeeList },
 	{ name: "New Employee", url: WebRoutes.EmployeeForm },
 	{ name: "Employee detail", url: WebRoutes.EmployeeDetail },
@@ -156,6 +167,7 @@ export default class App extends React.Component<{}, AppState> {
 												<Route exact path="/" component={() => <Hello compiler="TypeScript" library="React" />} />
 												<Route exact path="/counter" component={Counter} />
 												<Route exact path="/about" component={About} />
+												<Route exact path="/sponsorship" component={SponsorshipBoard} />
 												<Route path={WebRoutes.EmployeeList} component={Employee} />
 												<Route path={WebRoutes.InventoryMain} component={Inventory} />
 												<Route component={NoContent} />
