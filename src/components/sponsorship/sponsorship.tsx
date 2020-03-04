@@ -15,6 +15,8 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import TextField from '@material-ui/core/TextField';
 import "./sponsorship.scss";
+import { useKeyPress } from '../home/hooks';
+import Paper from '@material-ui/core/Paper';
 
 interface SponsorshipProps {
 
@@ -33,14 +35,30 @@ interface RowData {
     noCareers: boolean;
 }
 
+const useStyles = () => makeStyles(theme => ({
+    root: {
+        width: '100%',
+    },
+    paper: {
+        marginTop: theme.spacing(3),
+        width: '100%',
+        overflowX: 'auto',
+        marginBottom: theme.spacing(2),
+    },
+    table: {
+        minWidth: 650,
+    },
+}));
+
 export const SponsorshipBoard: React.FC = (props: SponsorshipProps) => {
     const [rows, setData] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
+    const happyPress = useKeyPress('h', () => console.log("I pressed h"));
 
     const [tableProps, setTableProps] = React.useState<TableProps>({
         count: 850,
-        rowsPerPage: 100,
-        page: 2,
+        rowsPerPage: 50,
+        page: 7,
     });
 
     const createData = (data: any) => {
@@ -88,7 +106,7 @@ export const SponsorshipBoard: React.FC = (props: SponsorshipProps) => {
     };
 
     const postData = (sponsorId: number, data: RowData) => {
-        setLoading(true);
+        //setLoading(true);
         fetch(`http://localhost:8080/sponsors/${sponsorId}`, {
             method: 'POST',
             body: JSON.stringify(data),
@@ -100,7 +118,7 @@ export const SponsorshipBoard: React.FC = (props: SponsorshipProps) => {
                 console.error('Looks like there was a problem. Status Code: ' + res.status);
                 throw Error();
             }
-        }).finally(() => setLoading(false))
+        }).finally()//() => setLoading(false)
     };
 
     const handleChange = React.useCallback((name: string, sponsorId: number, index: number) => (event: any) => {
@@ -109,31 +127,31 @@ export const SponsorshipBoard: React.FC = (props: SponsorshipProps) => {
 
         setData(rows => {
             const output = rows.map((item, i) => {
-                    const isChecked = checked && name !== "incorrectLikeness" && name !== "checkLater" 
-                        && name !== "niceSite" && name !== "interestingIdea";
-                    const finished: boolean = isChecked || item.applied || item.noCareers;
-                    return i === index ? { ...item, [name]: checked, finished } : item;
-                }
+                const isChecked = checked && name !== "incorrectLikeness" && name !== "checkLater"
+                    && name !== "niceSite" && name !== "interestingIdea";
+                const finished: boolean = isChecked || item.applied || item.noCareers;
+                return i === index ? { ...item, [name]: checked, finished } : item;
+            }
             );
             return output;
         });
-    }, [rows]);
+    }, []);
 
     const handleChangeText = React.useCallback((name: string, index: number) => (event: any) => {
         const textInput: boolean = event.target.value;
         setData(rows => {
             const output = rows.map((item, i) => {
-                    return i === index ? { ...item, [name]: textInput } : item;
-                }
+                return i === index ? { ...item, [name]: textInput } : item;
+            }
             );
             return output;
         });
-    }, [rows]);
+    }, []);
 
     const handleTextOnBlur = React.useCallback((name: string, sponsorId: number, index: number) => (event: any) => {
         const textInput: boolean = event.target.value || null;
         postData(sponsorId, { ...rows[index], [name]: textInput });
-    }, [rows]);
+    }, []);
 
     const handleChangePage = React.useCallback((event, newPage) => {
         setTableProps({ ...tableProps, page: newPage });
@@ -146,146 +164,150 @@ export const SponsorshipBoard: React.FC = (props: SponsorshipProps) => {
 
     console.log(`row size ${rows.length}`)
 
+    const classes = useStyles();
+
     return (
         <div>
-            <Table stickyHeader aria-label="simple table" className={loading ? "loading" : ""}>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Sponsor id</TableCell>
-                        <TableCell>Company house id</TableCell>
-                        <TableCell>Sponsor name</TableCell>
-                        <TableCell>Company name</TableCell>
-                        <TableCell align="right">checked</TableCell>
-                        <TableCell align="right">applied</TableCell>
-                        <TableCell align="right">incorrect likeness</TableCell>
-                        <TableCell align="right">check_later</TableCell>
-                        <TableCell align="right">nice site</TableCell>
-                        <TableCell align="right">interesting idea</TableCell>
-                        <TableCell align="right">no_careers page/ no website</TableCell>
-                        <TableCell align="right">no tech jobs/ no jobs in london</TableCell>
-                        <TableCell align="right">need right to work</TableCell>
-                        <TableCell align="right">tech category</TableCell>
-                        <TableCell align="right">other info</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row, index) => (
-                        <TableRow key={index} className={(row.finished ? "finished" : "") + " " + (row.shouldCheckToday ? "check-today" : "")}>
-                            <TableCell component="th" scope="row">
-                                {row.sponsorId}
-                            </TableCell>
-                            <TableCell component="th" scope="row">
-                                {row.companyHouseId}
-                            </TableCell>
-                            <TableCell component="th" scope="row">
-                                {row.sponsor}
-                            </TableCell>
-                            <TableCell>
-                                <div className={row.possibleIncorrectLikeness ? "not-same-icon" : ""}></div>
-                                {row.companyHouseName}
-                            </TableCell>
-                            <TableCell align="right">
-                                <Checkbox
-                                    checked={row.finished}
-                                    onChange={handleChange('checked', row.sponsorId, index)}
-                                    color="primary"
-                                />
-                            </TableCell>
-                            <TableCell align="right">
-                                <Checkbox
-                                    checked={row.applied}
-                                    onChange={handleChange('applied', row.sponsorId, index)}
-                                    color="primary"
-                                />
-                            </TableCell>
-                            <TableCell align="right">
-                                <Checkbox
-                                    checked={row.incorrectLikeness}
-                                    onChange={handleChange('incorrectLikeness', row.sponsorId, index)}
-                                    color="secondary"
-                                />
-                            </TableCell>
-                            <TableCell align="right">
-                                <Checkbox
-                                    checked={row.checkLater}
-                                    onChange={handleChange('checkLater', row.sponsorId, index)}
-                                    color="primary"
-                                />
-                            </TableCell>
-                            <TableCell align="right">
-                                <Checkbox
-                                    checked={row.niceSite}
-                                    onChange={handleChange('niceSite', row.sponsorId, index)}
-                                    color="secondary"
-                                />
-                            </TableCell>
-                            <TableCell align="right">
-                                <Checkbox
-                                    checked={row.interestingIdea}
-                                    onChange={handleChange('interestingIdea', row.sponsorId, index)}
-                                    color="primary"
-                                />
-                            </TableCell>
-                            <TableCell align="right">
-                                <Checkbox
-                                    checked={row.noCareers}
-                                    onChange={handleChange('noCareers', row.sponsorId, index)}
-                                    color="secondary"
-                                />
-                            </TableCell>
-                            <TableCell align="right">
-                                <Checkbox
-                                    checked={row.noTechJobs}
-                                    onChange={handleChange('noTechJobs', row.sponsorId, index)}
-                                    color="primary"
-                                />
-                            </TableCell>
-                            <TableCell align="right">
-                                <Checkbox
-                                    checked={row.needRightToWork}
-                                    onChange={handleChange('needRightToWork', row.sponsorId, index)}
-                                    color="secondary"
-                                />
-                            </TableCell>
-                            <TableCell align="right">
-                                <TextField
-                                    className="text-field"
-                                    margin="normal"
-                                    value={row.categories}
-                                    onChange={handleChangeText('categories', index)}
-                                    onBlur={handleTextOnBlur('categories', row.sponsorId, index)}
-                                />
-                            </TableCell>
-                            <TableCell align="right">
-                                <TextField
-                                    className="text-field"
-                                    margin="normal"
-                                    value={row.otherInfo}
-                                    onChange={handleChangeText('otherInfo', index)}
-                                    onBlur={handleTextOnBlur('otherInfo', row.sponsorId, index)}
-                                />
-                            </TableCell>
+            <Paper className={classes["paper"]}>
+                <Table stickyHeader aria-label="simple table" className={loading ? "loading" : ""}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Sponsor id</TableCell>
+                            <TableCell>Company house id</TableCell>
+                            <TableCell>Sponsor name</TableCell>
+                            <TableCell>Company name</TableCell>
+                            <TableCell align="right">checked</TableCell>
+                            <TableCell align="right">applied</TableCell>
+                            <TableCell align="right">incorrect likeness</TableCell>
+                            <TableCell align="right">check later</TableCell>
+                            <TableCell align="right">nice site</TableCell>
+                            <TableCell align="right">intrsng idea</TableCell>
+                            <TableCell align="right">no careers page/ no website</TableCell>
+                            <TableCell align="right">no tech jobs/ no jobs in london</TableCell>
+                            <TableCell align="right">need right to work</TableCell>
+                            <TableCell align="right">tech category</TableCell>
+                            <TableCell align="right">other info</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TablePagination
-                            colSpan={3}
-                            count={tableProps.count}
-                            rowsPerPage={tableProps.rowsPerPage}
-                            page={tableProps.page}
-                            SelectProps={{
-                                inputProps: { 'aria-label': 'rows per page' },
-                                native: true,
-                            }}
-                            onChangePage={handleChangePage}
-                            onChangeRowsPerPage={handleChangeRowsPerPage}
-                            ActionsComponent={TablePaginationActions}
-                        />
-                    </TableRow>
-                </TableFooter>
-            </Table>
+                    </TableHead>
+                    <TableBody>
+                        {rows.map((row, index) => (
+                            <TableRow key={index} className={(row.finished ? "finished" : "") + " " + (row.shouldCheckToday ? "check-today" : "")}>
+                                <TableCell component="th" scope="row">
+                                    {row.sponsorId}
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row.companyHouseId}
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row.sponsor}
+                                </TableCell>
+                                <TableCell>
+                                    <div className={row.possibleIncorrectLikeness ? "not-same-icon" : ""}></div>
+                                    {row.companyHouseName}
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Checkbox
+                                        checked={row.finished}
+                                        onChange={handleChange('checked', row.sponsorId, index)}
+                                        color="primary"
+                                    />
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Checkbox
+                                        checked={row.applied}
+                                        onChange={handleChange('applied', row.sponsorId, index)}
+                                        color="primary"
+                                    />
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Checkbox
+                                        checked={row.incorrectLikeness}
+                                        onChange={handleChange('incorrectLikeness', row.sponsorId, index)}
+                                        color="secondary"
+                                    />
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Checkbox
+                                        checked={row.checkLater}
+                                        onChange={handleChange('checkLater', row.sponsorId, index)}
+                                        color="primary"
+                                    />
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Checkbox
+                                        checked={row.niceSite}
+                                        onChange={handleChange('niceSite', row.sponsorId, index)}
+                                        color="secondary"
+                                    />
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Checkbox
+                                        checked={row.interestingIdea}
+                                        onChange={handleChange('interestingIdea', row.sponsorId, index)}
+                                        color="primary"
+                                    />
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Checkbox
+                                        checked={row.noCareers}
+                                        onChange={handleChange('noCareers', row.sponsorId, index)}
+                                        color="secondary"
+                                    />
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Checkbox
+                                        checked={row.noTechJobs}
+                                        onChange={handleChange('noTechJobs', row.sponsorId, index)}
+                                        color="primary"
+                                    />
+                                </TableCell>
+                                <TableCell align="right">
+                                    <Checkbox
+                                        checked={row.needRightToWork}
+                                        onChange={handleChange('needRightToWork', row.sponsorId, index)}
+                                        color="secondary"
+                                    />
+                                </TableCell>
+                                <TableCell align="right">
+                                    <TextField
+                                        className="text-field"
+                                        margin="normal"
+                                        value={row.categories}
+                                        onChange={handleChangeText('categories', index)}
+                                        onBlur={handleTextOnBlur('categories', row.sponsorId, index)}
+                                    />
+                                </TableCell>
+                                <TableCell align="right">
+                                    <TextField
+                                        className="text-field"
+                                        margin="normal"
+                                        value={row.otherInfo}
+                                        onChange={handleChangeText('otherInfo', index)}
+                                        onBlur={handleTextOnBlur('otherInfo', row.sponsorId, index)}
+                                    />
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                    <TableFooter>
+                        <TableRow>
+                            <TablePagination
+                                colSpan={3}
+                                count={tableProps.count}
+                                rowsPerPage={tableProps.rowsPerPage}
+                                page={tableProps.page}
+                                SelectProps={{
+                                    inputProps: { 'aria-label': 'rows per page' },
+                                    native: true,
+                                }}
+                                onChangePage={handleChangePage}
+                                onChangeRowsPerPage={handleChangeRowsPerPage}
+                                ActionsComponent={TablePaginationActions}
+                            />
+                        </TableRow>
+                    </TableFooter>
+                </Table>
+            </Paper>
         </div>
     );
 };

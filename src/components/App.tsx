@@ -15,6 +15,7 @@ import { LoadingOverlay } from '../components/shared/LoadingOverlay';
 import "./app.scss";
 import { SponsorshipBoard } from "./sponsorship/sponsorship";
 import * as whyDidYouRender from '@welldone-software/why-did-you-render/dist/no-classes-transpile/umd/whyDidYouRender.min.js';
+import { SponsorshipBoard2 } from "./sponsorship/sponsorship-2";
 
 whyDidYouRender(React, {
 	onlyLogs: true,
@@ -168,6 +169,7 @@ export default class App extends React.Component<{}, AppState> {
 												<Route exact path="/counter" component={Counter} />
 												<Route exact path="/about" component={About} />
 												<Route exact path="/sponsorship" component={SponsorshipBoard} />
+												<Route exact path="/sponsorship2" component={SponsorshipBoard2} />
 												<Route path={WebRoutes.EmployeeList} component={Employee} />
 												<Route path={WebRoutes.InventoryMain} component={Inventory} />
 												<Route component={NoContent} />
