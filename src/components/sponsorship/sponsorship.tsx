@@ -58,7 +58,7 @@ export const SponsorshipBoard: React.FC = (props: SponsorshipProps) => {
     const [tableProps, setTableProps] = React.useState<TableProps>({
         count: 850,
         rowsPerPage: 50,
-        page: 7,
+        page: 8,
     });
 
     const createData = (data: any) => {
@@ -92,7 +92,7 @@ export const SponsorshipBoard: React.FC = (props: SponsorshipProps) => {
 
     const getData = (pageNumber: number, pageSize: number) => {
         setLoading(true);
-        fetch(`http://localhost:8080/sponsors?pageNumber=${pageNumber}&pageSize=${pageSize}`).then(res => {
+        fetch(`http://localhost:9080/sponsors?pageNumber=${pageNumber}&pageSize=${pageSize}`).then(res => {
             if (res.status !== 200) {
                 console.error('Looks like there was a problem. Status Code: ' + res.status);
                 throw Error();
@@ -107,7 +107,7 @@ export const SponsorshipBoard: React.FC = (props: SponsorshipProps) => {
 
     const postData = (sponsorId: number, data: RowData) => {
         //setLoading(true);
-        fetch(`http://localhost:8080/sponsors/${sponsorId}`, {
+        fetch(`http://localhost:9080/sponsors/${sponsorId}`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
